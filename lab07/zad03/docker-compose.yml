@@ -1,0 +1,30 @@
+version: "3.0"
+services:
+  db:
+    container_name: db
+    image: mongo:${MONGO_VERSION}
+    restart: always
+    networks:
+      - net_A
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "${MONGO_PORT}:27017"
+  server:
+    image: piterson25/usersapi:5.0
+    container_name: server
+    build: .
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - net_A
+    ports:
+      - "3003:3000"
+    environment:
+      - MONGO_HOST=db
+      - MONGO_PORT=${MONGO_PORT}
+networks:
+  net_A:
+volumes:
+  mongo_data:
