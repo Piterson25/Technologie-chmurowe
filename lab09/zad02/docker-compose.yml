@@ -1,0 +1,22 @@
+version: '3'
+services:
+  api:
+    build:
+      context: /api/.
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+    networks:
+      - network
+    platform: linux/arm64/v8
+  mongodb:
+    image: mongo
+    ports:
+      - 27019:27017
+    networks:
+      - network
+    platform: linux/amd64
+
+networks:
+  network:
