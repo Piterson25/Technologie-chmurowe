@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mikroserwis-b-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mikroserwis-b
+  template:
+    metadata:
+      labels:
+        app: mikroserwis-b
+    spec:
+      containers:
+      - name: mikroserwis-b
+        image: piterson25/mikroserwis_b:latest
+        ports:
+        - containerPort: 3000
+        env:
+          - name: MONGODB_HOST
+            value: baza-danych-service
+          - name: MONGODB_PORT
+            value: "27017"
