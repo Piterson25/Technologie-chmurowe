@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mikroserwis-b-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mikroserwis-b
+  template:
+    metadata:
+      labels:
+        app: mikroserwis-b
+    spec:
+      containers:
+      - name: mikroserwis-b
+        image: piterson25/mikroserwis_b:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+          requests:
+            memory: "1Gi"
+            cpu: "1"
